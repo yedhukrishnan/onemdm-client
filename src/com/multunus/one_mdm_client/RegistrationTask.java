@@ -28,7 +28,6 @@ public class RegistrationTask extends AsyncTask<String, Void, String> {
 		
 		try {
 			registrationData.put("name", deviceName);
-			System.out.println(params[0]);
 			registrationDataEntity = new StringEntity(registrationData.toString());
 			registrationDataEntity.setContentType("application/json;charset=UTF-8");
 			
