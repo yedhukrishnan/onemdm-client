@@ -1,13 +1,14 @@
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
+import android.content.Intent;
+
 import com.multunus.one_mdm_client.OneMDMActivity;
-import com.multunus.one_mdm_client.R;
+import com.multunus.one_mdm_client.OneMDMService;
 
 
 @RunWith(RobolectricTestRunner.class)
@@ -21,10 +22,11 @@ public class OneMDMActivityTest {
 	}
 	
 	@Test
-    public void shouldHaveHappySmiles() throws Exception 
+    public void shouldStartTheOneMDMService() throws Exception 
     {
-        String hello = this.oneMDMActivity.getString(R.string.hello_world);
-        Assert.assertEquals(hello, "Hello world!");
+		Intent intent = Robolectric.shadowOf(oneMDMActivity).getNextStartedService();
+		Assert.assertNotNull(intent);
+		Assert.assertEquals(OneMDMService.class.getName(), intent.getComponent().getClassName());
     }
 
 }

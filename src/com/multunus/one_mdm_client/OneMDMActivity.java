@@ -1,7 +1,9 @@
 package com.multunus.one_mdm_client;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -11,6 +13,10 @@ public class OneMDMActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_one_mdm);
+		
+		Log.d("one-mdm", "Activity Started");
+		Intent intent = new Intent(this, OneMDMService.class);
+		startService(intent);
 	}
 
 	@Override
