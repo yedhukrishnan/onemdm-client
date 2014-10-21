@@ -1,3 +1,4 @@
+package com.multunus.one_mdm_client;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -2,6 +2,7 @@ package com.multunus.one_mdm_client;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -31,8 +32,14 @@ public class OneMDMService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.d("one-mdm", "Service started");
 		Toast.makeText(this, "Started service", Toast.LENGTH_LONG).show();
+		
+		new RegistrationTask().execute(getDeviceName());
 	
 		return super.onStartCommand(intent, flags, startId);
+	}
+	
+	private String getDeviceName() {
+		return Build.MANUFACTURER + " " + Build.MODEL;
 	}
 
 }
