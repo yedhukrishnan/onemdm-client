@@ -47,8 +47,8 @@ public class OneMDMService extends Service {
 	}
 	
 	protected boolean isNetworkAvailable() {
-		ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE); 
-		NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+		ConnectivityManager connectivityManager = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE); 
+		NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
 		boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 		
 		return isConnected;

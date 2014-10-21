@@ -24,9 +24,10 @@ public class RegistrationTask extends AsyncTask<String, Void, String> {
 		HttpPost apiPost = new HttpPost(REGISTRATION_URL);
 		JSONObject registrationData = new JSONObject();
 		StringEntity registrationDataEntity = null;
+		String deviceName = params[0];
 		
 		try {
-			registrationData.put("name", params[0]);
+			registrationData.put("name", deviceName);
 			System.out.println(params[0]);
 			registrationDataEntity = new StringEntity(registrationData.toString());
 			registrationDataEntity.setContentType("application/json;charset=UTF-8");
@@ -47,7 +48,7 @@ public class RegistrationTask extends AsyncTask<String, Void, String> {
 			e.printStackTrace();
 		}
 		
-		return null;
+		return deviceName;
 	}
 
 } 
