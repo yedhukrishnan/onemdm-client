@@ -21,7 +21,7 @@ import android.util.Log;
 
 public class RegistrationTask extends AsyncTask<String, Void, String> {
 	
-	private static final String REGISTRATION_URL = "http://192.168.0.56:1337/device/create";//"http://onemdm.herokuapp.com/device/create";
+	private static final String REGISTRATION_URL = "http://onemdm.herokuapp.com/device/create";
 	private OneMDMService service;
 
 	public RegistrationTask(OneMDMService service) {
