@@ -38,3 +38,6 @@ proguard/
 
 #sass cache
 .sass-cache
+
+#build keystore
+onemdm.keystore
