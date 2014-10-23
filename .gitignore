@@ -16,6 +16,8 @@ bin/
 gen/
 test_bin/
 tmp/
+build/
+.gradle
 
 # Local configuration file (sdk path, etc)
 local.properties
