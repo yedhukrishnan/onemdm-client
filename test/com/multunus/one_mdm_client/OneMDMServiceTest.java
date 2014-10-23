@@ -64,7 +64,6 @@ public class OneMDMServiceTest {
 		String deviceName = "1#testDevice";
 		oneMDMService.setRegistrationInfo(deviceName);
 		Assert.assertEquals(deviceName, oneMDMService.getSharedPreferences(OneMDMService.ONE_MDM_PREFERENCE_KEY, oneMDMService.MODE_PRIVATE).getString("name", "default"));
-		Mockito.verify(oneMDMService).stopSelf();
 	}
 
 }
