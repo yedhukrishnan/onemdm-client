@@ -3,6 +3,8 @@ package com.multunus.one_mdm_client;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import com.bugsnag.android.Bugsnag;
+
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
@@ -32,6 +34,8 @@ public class OneMDMService extends Service {
 	public void onCreate() {
 		super.onCreate();
 		Log.d("one-mdm", "One MDM Service created");
+		
+		Bugsnag.register(this, Config.BUGSNAG_API_KEY);
 
 		if(!isDeviceRegistered()) {
 			if(isNetworkAvailable()) {
@@ -89,7 +93,9 @@ public class OneMDMService extends Service {
 	}
 
 	public boolean isDeviceRegistered() {
-		return !this.getSharedPreferences(ONE_MDM_PREFERENCE_KEY, MODE_PRIVATE).getString("name", "").isEmpty();
+		boolean isRegistered = (this.getSharedPreferences(ONE_MDM_PREFERENCE_KEY, MODE_PRIVATE).getInt("deviceID", 0) != 0);
+		Log.d("one-mdm", "Device already registered? " + isRegistered);
+		return isRegistered;
 	}
 	
 	protected void scheduleHeartbeats() {
@@ -99,14 +105,15 @@ public class OneMDMService extends Service {
 			@Override
 			public void run() {
 				int deviceID = getSharedPreferences(ONE_MDM_PREFERENCE_KEY, MODE_PRIVATE).getInt("deviceID", 0);
-				if(deviceID != 0) {
+				if(deviceID != 0 && isNetworkAvailable()) {
 					new HeartbeatSender().send(deviceID);
 				} else {
 					Log.d("one-mdm", "Registration ID not found! Heartbeat sending cancelled");
+					Bugsnag.notify(new Exception("Heartbeat failed"));
 				}
 			}
 			
-		}, 3, Config.HEARTBEAT_INTERVAL, TimeUnit.SECONDS);
+		}, 5, Config.HEARTBEAT_INTERVAL, TimeUnit.SECONDS);
 	}
 	
 	protected ScheduledThreadPoolExecutor getScheduledThreadPoolExecutor() {
