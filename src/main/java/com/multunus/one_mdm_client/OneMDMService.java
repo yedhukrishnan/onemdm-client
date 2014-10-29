@@ -3,23 +3,19 @@ package com.multunus.one_mdm_client;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import com.bugsnag.android.Bugsnag;
-
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
 import android.app.Notification;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.IBinder;
-import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.bugsnag.android.Bugsnag;
 
 public class OneMDMService extends Service {
 

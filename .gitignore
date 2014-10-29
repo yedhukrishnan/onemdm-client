@@ -1,5 +1,5 @@
 #config file
-src/com/multunus/one_mdm_client/Config.java
+src/main/java/com/multunus/one_mdm_client/Config.java
 
 # built application files
 *.apk
