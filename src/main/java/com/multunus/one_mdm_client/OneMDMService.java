@@ -1,14 +1,21 @@
 package com.multunus.one_mdm_client;
 
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -24,7 +31,7 @@ public class OneMDMService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		Log.d("one-mdm", "Service created");
+		Log.d("one-mdm", "One MDM Service created");
 
 		if(!isDeviceRegistered()) {
 			if(isNetworkAvailable()) {
@@ -35,6 +42,8 @@ public class OneMDMService extends Service {
 				this.stopSelf();
 			}
 		}
+		
+		scheduleHeartbeats();
 	}
 
 	@Override
@@ -46,7 +55,8 @@ public class OneMDMService extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		super.onStartCommand(intent, flags, startId);	
-		Log.d("one-mdm", "Service started");
+		Log.d("one-mdm", "One MDM Service started");
+		
 		Notification notification = new Notification.Builder(this)
 		.setContentTitle("One MDM Service")
 		.setContentText("One MDM Service is running")
@@ -65,7 +75,7 @@ public class OneMDMService extends Service {
 		NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
 		boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
 
-		Log.d("one-mdm", "network available? " + isConnected);
+		Log.d("one-mdm", "Network available? " + isConnected);
 		return isConnected;
 	}	
 
@@ -73,12 +83,34 @@ public class OneMDMService extends Service {
 		return new RegistrationTask(this);
 	}
 
-	protected void setRegistrationInfo(String deviceName) {
-		this.getSharedPreferences(ONE_MDM_PREFERENCE_KEY, MODE_PRIVATE).edit().putString("name", deviceName).commit();
+	protected void setRegistrationInfo(Integer deviceID) {
+		Log.d("one-mdm", "Registration ID: " + deviceID);
+		this.getSharedPreferences(ONE_MDM_PREFERENCE_KEY, MODE_PRIVATE).edit().putInt("deviceID", deviceID).commit();
 	}
 
 	public boolean isDeviceRegistered() {
 		return !this.getSharedPreferences(ONE_MDM_PREFERENCE_KEY, MODE_PRIVATE).getString("name", "").isEmpty();
+	}
+	
+	protected void scheduleHeartbeats() {
+		ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = getScheduledThreadPoolExecutor();
+		scheduledThreadPoolExecutor.scheduleAtFixedRate(new Runnable() {
+			
+			@Override
+			public void run() {
+				int deviceID = getSharedPreferences(ONE_MDM_PREFERENCE_KEY, MODE_PRIVATE).getInt("deviceID", 0);
+				if(deviceID != 0) {
+					new HeartbeatSender().send(deviceID);
+				} else {
+					Log.d("one-mdm", "Registration ID not found! Heartbeat sending cancelled");
+				}
+			}
+			
+		}, 3, Config.HEARTBEAT_INTERVAL, TimeUnit.SECONDS);
+	}
+	
+	protected ScheduledThreadPoolExecutor getScheduledThreadPoolExecutor() {
+		return new ScheduledThreadPoolExecutor(1);
 	}
 
 }

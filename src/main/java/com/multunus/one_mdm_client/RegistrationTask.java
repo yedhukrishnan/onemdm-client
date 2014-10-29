@@ -16,9 +16,9 @@ import org.json.JSONObject;
 
 import android.os.AsyncTask;
 
-public class RegistrationTask extends AsyncTask<String, Void, String> {
+public class RegistrationTask extends AsyncTask<String, Void, Integer> {
 	
-	private static final String REGISTRATION_URL = Config.SERVER+"device/create";
+	private static final String REGISTRATION_URL = Config.SERVER + "device/create";
 	private OneMDMService service;
 
 	public RegistrationTask(OneMDMService service) {
@@ -26,12 +26,12 @@ public class RegistrationTask extends AsyncTask<String, Void, String> {
 	}
 
 	@Override
-	protected String doInBackground(String... params) {
+	protected Integer doInBackground(String... params) {
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpPost apiPost = new HttpPost(REGISTRATION_URL);
 		JSONObject registrationData = new JSONObject();
 		StringEntity registrationDataEntity = null;
-		String deviceID = "";
+		int deviceID = 0;
 		String deviceName = params[0];
 		
 		try {
@@ -57,7 +57,7 @@ public class RegistrationTask extends AsyncTask<String, Void, String> {
 				responseBody += line;
 			}
 			
-			deviceID = new JSONObject(responseBody).getString("device");
+			deviceID = new JSONObject(responseBody).getInt("id");
 			
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
@@ -71,9 +71,9 @@ public class RegistrationTask extends AsyncTask<String, Void, String> {
 	}
 
 	@Override
-	protected void onPostExecute(String result) {
-		service.setRegistrationInfo(result);
-		super.onPostExecute(result);
+	protected void onPostExecute(Integer deviceID) {
+		service.setRegistrationInfo(deviceID);
+		super.onPostExecute(deviceID);
 	}
 
 } 
