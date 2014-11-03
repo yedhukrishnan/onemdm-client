@@ -1,6 +1,4 @@
 package com.multunus.one_mdm_client;
-import static org.robolectric.util.Strings.fromStream;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.ProtocolVersion;
 import org.apache.http.client.methods.HttpPost;
@@ -17,7 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 
-import com.multunus.one_mdm_client.RegistrationTask;
+import static org.robolectric.util.Strings.fromStream;
 
 
 @RunWith(RobolectricTestRunner.class)
@@ -37,14 +35,14 @@ public class RegistrationTaskTest {
 		HttpResponse httpResponse = new BasicHttpResponse(new ProtocolVersion("HTTP", 1, 1), 200, "OK");
 		httpResponse.setEntity(new StringEntity(jsonResponse));
 		Robolectric.addPendingHttpResponse(httpResponse);
-		
+
 		new RegistrationTask(oneMDMService).execute(deviceName);
 		Robolectric.runBackgroundTasks();
-		
-		HttpPost postRequest = (HttpPost) Robolectric.getLatestSentHttpRequest();	
+
+		HttpPost postRequest = (HttpPost) Robolectric.getLatestSentHttpRequest();
 		String postBody = fromStream(postRequest.getEntity().getContent());
 		JSONObject registrationData = new JSONObject(postBody);
-		
+
 		Assert.assertEquals(deviceName, registrationData.get("name"));
 		Mockito.verify(oneMDMService).setRegistrationInfo(Mockito.anyInt());
 	}
