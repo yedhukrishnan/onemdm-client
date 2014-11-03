@@ -1,4 +1,5 @@
 language: android
+before_script: cp src/main/java/com/multunus/one_mdm_client/Config.java.template src/main/java/com/multunus/one_mdm_client/Config.java
 script: ./gradlew clean test
 android:
   components:
