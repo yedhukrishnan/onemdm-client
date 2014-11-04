@@ -57,10 +57,18 @@ android {
         throw new GradleException("Could not read version.properties!")
     }
 
+
     signingConfigs {
         release {
             // We can leave these in environment variables
-            storeFile file(System.getenv("KEYSTORE") || "./onemdm.keystore")
+
+            try{
+                storeFile file(System.getenv("KEYSTORE"))
+            }
+            catch(Exception ex){
+
+            }
+
             keyAlias System.getenv("KEY_ALIAS")
 
             // These two lines make gradle believe that the signingConfigs
