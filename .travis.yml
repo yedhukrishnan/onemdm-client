@@ -17,3 +17,8 @@ env:
   - secure: Id6fRsCrtOoX9TCEQIU1JxYKwvttU5ymYc1NHskCSW6fhGe+vznyZ6XWmEtWhp0EGQmCw7uNyIAqHMe4MP7mzlYTo7YyctCKNjvOtcv864GbONeyaj+/pLdflPHqqXTzwa09rD0sybfmhstuDzs7Czd8XhlQFaweZabKaPOOV1E=
   - secure: ZYQ+UnfJ7hqVh1ymXMNp+b5aYyV+UzZLdCwyigrFooPjWsqxG0tpScciwx2saa4httHIU+xO2rWGF2+igdMNMjI7s1td8vRbyNMymsd1tgwst6/0Gk2xnkPo8GcZvnhjuEM5ey+xh2m4l+j0+NZ3i/vegEsr4gXbVzCVH34Pzd0=
   - secure: XIexDWDnOYYECZIc9uuqDuAIwxDeMPizgzRf9dYQUPQFlSa20K1xidX7qBJ3e6LHPtJkoE56UJNs/qU809Zb5EYHFItJIp6gBGZR3IbHOg5nmKhFvnFI9plmtBUR86/lRehYIZ4RcWGpXQ54dwBl49EyuFyfkukBdGOhsLj/5kI=
+  - secure: JCnopp0OCEh1WLoau17m84RRjbnhI0BF/LoI9EJeNft319BqlLQbQBm0T784k/0OFET6GcBYKVqbWBqUBvWavC0Y6Um70z3dYnsTLlMd52bwkkjzWbhaLaZ5a9HLBRM2KcZhVbsds1Kg3pIjW67YtrElVjSal+bxCvKvuoVbxdg=
+  - secure: L7pO0nVr+rtEQ0pUeurWrF+vv6H7/16xlfiTetKYbBY3U+ylZJmGueipgBK+ONR7YyoNmQH2ARgmoTaT5oDUbYq+WA6H8Iif3JHFJs+/8Il3zHnBcsjhjIA4yA9TY5+59Uo34eO4UEZ4ynQsQNlFeacCSWpicbQJx486E9SDHgc=
+before_install:
+- openssl aes-256-cbc -K $encrypted_5559c6579f6a_key -iv $encrypted_5559c6579f6a_iv
+  -in onemdm.keystore.enc -out onemdm.keystore -d
