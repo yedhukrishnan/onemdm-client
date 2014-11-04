@@ -1,9 +1,15 @@
 language: android
 before_script:
-- openssl aes-256-cbc -K $encrypted_5559c6579f6a_key -iv $encrypted_5559c6579f6a_iv
+  - openssl aes-256-cbc -K $encrypted_5559c6579f6a_key -iv $encrypted_5559c6579f6a_iv
   -in onemdm.keystore.enc -out onemdm.keystore -d
-- cp src/main/java/com/multunus/one_mdm_client/Config.java.template src/main/java/com/multunus/one_mdm_client/Config.java
-script: "./gradlew signingReport"
+  - cp src/main/java/com/multunus/one_mdm_client/Config.java.template src/main/java/com/multunus/one_mdm_client/Config.java
+after_success:
+  - git config credential.helper "store --file=.git/credentials"
+  - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
+  - git add version.properties
+  - git commit -m "Update version.properties"
+  - git push origin master
+script: "./gradlew clean build"
 android:
   components:
   - platform-tools
