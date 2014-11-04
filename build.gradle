@@ -34,16 +34,47 @@ android {
     compileSdkVersion 18
     buildToolsVersion "19.1.0"
 
-    defaultConfig {
-        minSdkVersion 17
-        targetSdkVersion 18
-        versionCode 2
-        versionName "1.0.0-SNAPSHOT"
-        testInstrumentationRunner "com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner"
+    def versionPropsFile = file('version.properties')
+
+    if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def code = versionProps['VERSION_CODE'].toInteger() + 1
+
+        versionProps['VERSION_CODE']=code.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+
+        defaultConfig {
+            versionCode code
+            versionName "1.1"
+            minSdkVersion 14
+            targetSdkVersion 18
+        }
     }
+    else {
+        throw new GradleException("Could not read version.properties!")
+    }
+
+    signingConfigs {
+        release {
+            // We can leave these in environment variables
+            storeFile file(System.getenv("KEYSTORE"))
+            keyAlias System.getenv("KEY_ALIAS")
+
+            // These two lines make gradle believe that the signingConfigs
+            // section is complete. Without them, tasks like installRelease
+            // will not be available!
+            storePassword System.getenv("STOREPWD")            
+            keyPassword System.getenv("KEYPWD") 
+        }
+    }
+    
     buildTypes {
         release {
             runProguard false
+            signingConfig signingConfigs.release
         }
     }
 
