@@ -68,7 +68,8 @@ public class ScriptListener {
 
         URI website = null;
         try {
-            website = new URI(Config.SERVER + "script/executable?device=103");
+            int deviceID = service.getApplicationContext().getSharedPreferences(service.ONE_MDM_PREFERENCE_KEY, service.getApplicationContext().MODE_PRIVATE).getInt("deviceID", 0);
+            website = new URI(Config.SERVER + "script/executable?device=" + deviceID);
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
