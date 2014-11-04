@@ -2,8 +2,8 @@ package com.multunus.one_mdm_client;
 
 public class ScriptExecutionOutput {
 
-    final static String FAILED = "failed";
-    final static String SUCCEEDED = "succeeded";
+    final static String FAILED = "Failed";
+    final static String SUCCEEDED = "Success";
     private int scriptID;
     private int exitValue;
 
@@ -15,7 +15,6 @@ public class ScriptExecutionOutput {
         this.scriptID = scriptID;
         this.exitValue = exitValue;
     }
-
 
     public void setScriptID(int scriptID) {
         this.scriptID = scriptID;

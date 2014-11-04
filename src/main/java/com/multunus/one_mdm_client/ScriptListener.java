@@ -52,7 +52,11 @@ public class ScriptListener {
                     }
                     output = new ScriptExecutor().execute(command);
                     output.setScriptID(scriptID);
-                    printMessage(output);
+                    try {
+                        printMessage(output, script.getString("name"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     new StatusUpdater().execute(output);
                 }
 
@@ -110,12 +114,13 @@ public class ScriptListener {
         return new JSONObject(script);
     }
 
-    private void printMessage(ScriptExecutionOutput output) {
+    private void printMessage(ScriptExecutionOutput output, String scriptName) {
+        Log.d("one-mdm", scriptName);
         Log.d("one-mdm", "Notifying user");
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(service.getApplicationContext());
         mBuilder.setSmallIcon(R.drawable.ic_launcher);
         mBuilder.setContentTitle("One MDM");
-        mBuilder.setContentText("Script execution " + output.getStatus());
+        mBuilder.setContentText(scriptName + " Script Execution " + output.getStatus());
         Intent resultIntent = new Intent(service.getApplicationContext(), OneMDMActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(service.getApplicationContext());
         stackBuilder.addParentStack(OneMDMActivity.class);
