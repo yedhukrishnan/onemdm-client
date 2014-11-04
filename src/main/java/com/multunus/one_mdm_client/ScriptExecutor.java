@@ -1,5 +1,7 @@
 package com.multunus.one_mdm_client;
 
+import android.util.Log;
+
 import com.bugsnag.android.Bugsnag;
 
 import java.io.IOException;
@@ -10,16 +12,18 @@ public class ScriptExecutor {
     ScriptExecutionOutput output;
 
     public ScriptExecutionOutput execute(String command) {
+        Log.d("one-mdm", "Executing script: " + command);
         try {
             Process process = executeCommand(command);
             process.waitFor();
             exitValue = process.exitValue();
-
+            Log.d("one-mdm", "Execution finished with status: " + exitValue);
         } catch (IOException e) {
             e.printStackTrace();
             Bugsnag.notify(e);
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Bugsnag.notify(e);
         }
 
         output = new ScriptExecutionOutput(exitValue);

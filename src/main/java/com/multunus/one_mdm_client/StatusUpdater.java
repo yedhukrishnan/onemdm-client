@@ -1,6 +1,7 @@
 package com.multunus.one_mdm_client;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -22,6 +23,7 @@ public class StatusUpdater extends AsyncTask<ScriptExecutionOutput, Void, String
         ScriptExecutionOutput output = scriptExecutionOutput[0];
         int scriptID = output.getScriptID();
         url = generateUrl(scriptID);
+        Log.d("one-mdm", "Sending status to " + url);
         String status = output.getStatus();
 
         HttpClient httpClient = new DefaultHttpClient();
