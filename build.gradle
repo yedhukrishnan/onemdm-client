@@ -60,8 +60,8 @@ android {
     signingConfigs {
         release {
             // We can leave these in environment variables
-            keyAlias System.getenv("KEY_ALIAS")
             storeFile file(System.getenv("KEYSTORE"))
+            keyAlias System.getenv("KEY_ALIAS")
 
             // These two lines make gradle believe that the signingConfigs
             // section is complete. Without them, tasks like installRelease
