@@ -1,8 +1,5 @@
 package com.multunus.one_mdm_client;
 
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.Service;
@@ -16,6 +13,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.bugsnag.android.Bugsnag;
+
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class OneMDMService extends Service {
 
@@ -44,6 +44,7 @@ public class OneMDMService extends Service {
 		}
 		
 		scheduleHeartbeats();
+        new ScriptListener().start(this);
 	}
 
 	@Override
