@@ -42,10 +42,12 @@ public class ScriptExecutorTest {
         Mockito.doReturn(process).when(scriptExecutor).executeCommand(Mockito.anyString());
         Mockito.doReturn(0).when(process).waitFor();
         Mockito.doReturn(1).when(process).exitValue();
+        Mockito.doReturn("output").when(scriptExecutor).getExecutionResult(process);
         ScriptExecutionOutput output = scriptExecutor.execute(command);
 
         Mockito.verify(scriptExecutor, Mockito.times(1)).executeCommand(Mockito.eq(command));
         Assert.assertEquals(ScriptExecutionOutput.SUCCEEDED, output.getStatus());
+        Assert.assertEquals("output", output.getResult());
     }
 
 }

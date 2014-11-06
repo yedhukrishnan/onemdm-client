@@ -25,6 +25,7 @@ public class StatusUpdater extends AsyncTask<ScriptExecutionOutput, Void, String
         url = generateUrl(scriptID);
         Log.d("one-mdm", "Sending status to " + url);
         String status = output.getStatus();
+        String executionOutput = output.getResult();
 
         HttpClient httpClient = new DefaultHttpClient();
         HttpPost apiPost = new HttpPost(url);
@@ -33,6 +34,7 @@ public class StatusUpdater extends AsyncTask<ScriptExecutionOutput, Void, String
 
         try {
             registrationData.put("status", status);
+            registrationData.put("output", executionOutput);
             registrationDataEntity = new StringEntity(registrationData.toString());
             registrationDataEntity.setContentType("application/json;charset=UTF-8");
         } catch (JSONException e) {
