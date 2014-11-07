@@ -24,7 +24,7 @@ cd one-mdm-client
 cp src/main/java/com/multunus/one_mdm_client/Config.java.template src/main/java/com/multunus/one_mdm_client/Config.java
 ```
 
-Set variable `SERVER` to point to the hosted One MDM Server. Also configure the `BUGSNAG_API_KEY` for error reporting:
+Set the constant `SERVER` to point to the hosted One MDM Server. Also configure the `BUGSNAG_API_KEY` for error reporting:
 
 ``` java
 public static final String SERVER = <Server URL>;
