@@ -37,4 +37,21 @@ Build the project from the command line:
 ./gradlew clean build
 ```
 
+### Configurations
 
+Currently, you can configure the following options in `Config.java`:
+
+* `SERVER` - Root URL to the One MDM Server (For example: `http://onemdm.herokuapp.com`)
+* `HEARTBEAT_INTERVAL` - Interval at which the device sends heartbeat to the server to say that 'I am alive!'. Heartbeat interval value is given in seconds.
+* `BUGSNAG_API_KEY` - Bugsnag API key for sending error reports when it happens. To know more about Bugsnag, [see here](https://bugsnag.com/).
+* `SCRIPT_POLLING_INTERVAL` - Interval at which the client polls to the server to check if any new scripts are available for execution.
+
+### Installation and Running
+
+You can install the application in an android device after building it. Once it is installed and started, the device gets registered in the server automatically. It also starts sending heartbeats at the given interval. It shows a notification on the device indicating that the One MDM service is running in the background. 
+
+If the device is not connected to the internet at the time of starting, the registration will not happen. The device will show a message to the user and will exit.
+
+## How to contribute to One MDM?
+
+One MDM is still under construction! It is purely an open source project. If you find any bugs, you can help us by raising issues in Github. You can also contribute to the project by sending pull requests.
