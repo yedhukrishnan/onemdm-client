@@ -52,6 +52,6 @@ You can install the application in an android device after building it. Once it 
 
 If the device is not connected to the internet at the time of starting, the registration will not happen. The device will show a message to the user and will exit.
 
-## How to contribute to One MDM?
+## How to contribute to One MDM Client?
 
 One MDM is still under construction! It is purely an open source project. If you find any bugs, you can help us by raising issues in Github. You can also contribute to the project by sending pull requests.
