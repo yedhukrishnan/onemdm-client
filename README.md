@@ -58,4 +58,10 @@ If the device is not connected to the internet at the time of starting, the regi
 
 ## How to contribute to One MDM Client?
 
-One MDM is still under construction! It is purely an open source project. If you find any bugs, you can help us by raising issues in Github. You can also contribute to the project by sending pull requests.
+One MDM is still under construction! It is purely an open source project. If you find any bugs, you can help us by raising issues in Github. You can also contribute to the project by sending pull requests:
+
+* Fork the project on Github
+* Create a topic branch for your changes
+* Ensure that you provide *documentation* and *test coverage* for your changes (patches won't be accepted without)
+* Ensure that all tests pass (`./gradlew clean test`)
+* Create a pull request on Github 
