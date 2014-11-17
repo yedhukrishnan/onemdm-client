@@ -50,7 +50,11 @@ Currently, you can configure the following options in `Config.java`:
 
 You can install the application in an android device after building it. Once it is installed and started, the device gets registered in the server automatically. It also starts sending heartbeats at the given interval. It shows a notification on the device indicating that the One MDM service is running in the background. 
 
+![notification](https://raw.githubusercontent.com/multunus/one-mdm-client/master/screenshots/onemdmclient_notification.png)
+
 If the device is not connected to the internet at the time of starting, the registration will not happen. The device will show a message to the user and will exit.
+
+![no-internet](https://raw.githubusercontent.com/multunus/one-mdm-client/master/screenshots/onemdmclient_no_internet.png)
 
 ## How to contribute to One MDM Client?
 
