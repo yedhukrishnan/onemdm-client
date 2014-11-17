@@ -1,7 +1,7 @@
 One MDM Client
 ==============
 
-One MDM Client is the android application to run on the client device to communicate with the [One MDM](https://github.com/multunus/one-mdm/) Server.
+One MDM Client is the android application to run on the client device to communicate with the One MDM Server. Read more about One MDM here: [One MDM Server](https://github.com/multunus/one-mdm/)
 
 ## How to set up One MDM Client?
 
