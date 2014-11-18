@@ -6,6 +6,7 @@ import com.bugsnag.android.Bugsnag;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class ScriptExecutor {
@@ -21,13 +22,18 @@ public class ScriptExecutor {
             process.waitFor();
             exitValue = process.exitValue();
 
-            scriptResult = getExecutionResult(process);
+            scriptResult += getExecutionResult(process.getInputStream());
+            if(scriptResult.isEmpty()) {
+                exitValue = 1;
+            }
+            scriptResult += getExecutionResult(process.getErrorStream());
 
             Log.d("one-mdm", "Execution finished with status: " + exitValue);
+
         } catch (IOException e) {
             e.printStackTrace();
             Bugsnag.notify(e);
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Bugsnag.notify(e);
         }
@@ -38,9 +44,9 @@ public class ScriptExecutor {
         return output;
     }
 
-    protected String getExecutionResult(Process process) throws IOException {
+    protected String getExecutionResult(InputStream stream) throws IOException {
         StringBuffer result = new StringBuffer();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         int read;
         char[] buffer = new char[4096];
         while ((read = reader.read(buffer)) > 0) {

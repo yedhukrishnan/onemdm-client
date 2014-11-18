@@ -12,6 +12,7 @@ import org.mockito.Spy;
 import org.robolectric.RobolectricTestRunner;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 @RunWith(RobolectricTestRunner.class)
 public class ScriptExecutorTest {
@@ -38,16 +39,28 @@ public class ScriptExecutorTest {
     }
 
     @Test
-    public void shouldExecuteScriptAndReturnTheStatus() throws IOException, InterruptedException {
+    public void shouldExecuteScriptAndReturnTheStatusAndResult() throws IOException, InterruptedException {
         Mockito.doReturn(process).when(scriptExecutor).executeCommand(Mockito.anyString());
         Mockito.doReturn(0).when(process).waitFor();
-        Mockito.doReturn(1).when(process).exitValue();
-        Mockito.doReturn("output").when(scriptExecutor).getExecutionResult(process);
+        Mockito.doReturn(0).when(process).exitValue();
+        Mockito.doReturn("output").when(scriptExecutor).getExecutionResult(Mockito.any(InputStream.class));
         ScriptExecutionOutput output = scriptExecutor.execute(command);
 
         Mockito.verify(scriptExecutor, Mockito.times(1)).executeCommand(Mockito.eq(command));
         Assert.assertEquals(ScriptExecutionOutput.SUCCEEDED, output.getStatus());
-        Assert.assertEquals("output", output.getResult());
+        Assert.assertEquals("outputoutput", output.getResult());
+    }
+
+    @Test
+    public void shouldExecuteScriptAndSetStatusAsFailedWhenNoOutput() throws IOException, InterruptedException {
+        Mockito.doReturn(process).when(scriptExecutor).executeCommand(Mockito.anyString());
+        Mockito.doReturn(0).when(process).waitFor();
+        Mockito.doReturn(0).when(process).exitValue();
+        Mockito.doReturn("").when(scriptExecutor).getExecutionResult(Mockito.any(InputStream.class));
+        ScriptExecutionOutput output = scriptExecutor.execute(command);
+
+        Mockito.verify(scriptExecutor, Mockito.times(1)).executeCommand(Mockito.eq(command));
+        Assert.assertEquals(ScriptExecutionOutput.FAILED, output.getStatus());
     }
 
 }

@@ -27,7 +27,7 @@ public class ScriptExecutionOutput {
     }
 
     public String getStatus() {
-        return (exitValue == 0) ? FAILED : SUCCEEDED;
+        return (exitValue == 0) ? SUCCEEDED : FAILED;
     }
 
     public String getResult() {

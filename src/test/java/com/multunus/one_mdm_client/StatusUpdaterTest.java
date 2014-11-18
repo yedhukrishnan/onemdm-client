@@ -32,7 +32,7 @@ public class StatusUpdaterTest {
         MockitoAnnotations.initMocks(this);
         jsonResponse = "{\"id\": 123}";
         id = 123;
-        exitValue = 1;
+        exitValue = 0;
     }
 
     @Test
