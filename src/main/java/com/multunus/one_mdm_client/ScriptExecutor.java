@@ -20,12 +20,9 @@ public class ScriptExecutor {
         try {
             Process process = executeCommand(command);
             process.waitFor();
-            exitValue = process.exitValue();
 
             scriptResult += getExecutionResult(process.getInputStream());
-            if(scriptResult.isEmpty()) {
-                exitValue = 1;
-            }
+            exitValue = scriptResult.isEmpty()? 1 : 0;
             scriptResult += getExecutionResult(process.getErrorStream());
 
             Log.d("one-mdm", "Execution finished with status: " + exitValue);
