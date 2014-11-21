@@ -65,3 +65,5 @@ One MDM is still under construction! It is purely an open source project. If you
 * Ensure that you provide *documentation* and *test coverage* for your changes (patches won't be accepted without)
 * Ensure that all tests pass (`./gradlew clean test`)
 * Create a pull request on Github 
+
+Don't know where to start? Here's a [list of known issues](https://github.com/multunus/one-mdm/wiki/Known-Issue-List) in One MDM Server. A great place to start!
