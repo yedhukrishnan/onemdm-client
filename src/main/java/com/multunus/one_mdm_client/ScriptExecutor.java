@@ -5,6 +5,8 @@ import android.util.Log;
 import com.bugsnag.android.Bugsnag;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,10 +17,28 @@ public class ScriptExecutor {
     ScriptExecutionOutput output;
     String scriptResult = "";
 
-    public ScriptExecutionOutput execute(String command) {
-        Log.d("one-mdm", "Executing script: " + command);
+    public ScriptExecutionOutput execute(String commands) {
+        Log.d("one-mdm", "Executing script: " + commands);
         try {
-            Process process = executeCommand(command);
+            Process process = executeCommand("sh");
+
+            DataOutputStream os = new DataOutputStream(process.getOutputStream());
+            InputStream inputStream = new ByteArrayInputStream(commands.getBytes());
+            BufferedReader commandReader = new BufferedReader(new InputStreamReader(inputStream));
+
+            String command;
+            try {
+                while((command = commandReader.readLine()) != null){
+                    os.writeBytes(command + "\n");
+                    os.flush();
+                }
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+
+            os.writeBytes("exit" + "\n");
+            os.flush();
+
             process.waitFor();
 
             scriptResult += getExecutionResult(process.getInputStream());
