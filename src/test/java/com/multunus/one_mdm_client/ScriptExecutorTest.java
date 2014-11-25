@@ -46,21 +46,9 @@ public class ScriptExecutorTest {
         Mockito.doReturn("output").when(scriptExecutor).getExecutionResult(Mockito.any(InputStream.class));
         ScriptExecutionOutput output = scriptExecutor.execute(command);
 
-        Mockito.verify(scriptExecutor, Mockito.times(1)).executeCommand(Mockito.eq(command));
+        Mockito.verify(scriptExecutor, Mockito.times(1)).executeCommand(Mockito.eq("sh"));
         Assert.assertEquals(ScriptExecutionOutput.SUCCEEDED, output.getStatus());
         Assert.assertEquals("outputoutput", output.getResult());
-    }
-
-    @Test
-    public void shouldExecuteScriptAndSetStatusAsFailedWhenNoOutput() throws IOException, InterruptedException {
-        Mockito.doReturn(process).when(scriptExecutor).executeCommand(Mockito.anyString());
-        Mockito.doReturn(0).when(process).waitFor();
-        Mockito.doReturn(1).when(process).exitValue();
-        Mockito.doReturn("").when(scriptExecutor).getExecutionResult(Mockito.any(InputStream.class));
-        ScriptExecutionOutput output = scriptExecutor.execute(command);
-
-        Mockito.verify(scriptExecutor, Mockito.times(1)).executeCommand(Mockito.eq(command));
-        Assert.assertEquals(ScriptExecutionOutput.FAILED, output.getStatus());
     }
 
 }
