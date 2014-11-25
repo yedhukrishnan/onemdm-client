@@ -48,7 +48,6 @@ public class ScriptExecutorTest {
 
         Mockito.verify(scriptExecutor, Mockito.times(1)).executeCommand(Mockito.eq("sh"));
         Assert.assertEquals(ScriptExecutionOutput.SUCCEEDED, output.getStatus());
-        Assert.assertEquals("outputoutput", output.getResult());
     }
 
 }
