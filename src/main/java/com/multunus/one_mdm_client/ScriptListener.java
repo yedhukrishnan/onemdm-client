@@ -29,7 +29,7 @@ public class ScriptListener {
     public void start(OneMDMService service) {
         this.service = service;
         Log.d("one-mdm", "Starting script polling.");
-        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(1);
+        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(5);
         scheduledThreadPoolExecutor.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
@@ -37,6 +37,7 @@ public class ScriptListener {
                 JSONObject script = null;
                 int scriptID = 0;
                 String command = null;
+                boolean rootPermissionRequired = false;
                 ScriptExecutionOutput output;
 
                 try {
@@ -47,10 +48,12 @@ public class ScriptListener {
                     try {
                         scriptID = script.getInt("id");
                         command = script.getString("content");
+                        rootPermissionRequired = script.getBoolean("rootPermission");
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    output = new ScriptExecutor().execute(command);
+                    output = new ScriptExecutor().execute(command, rootPermissionRequired);
                     output.setScriptID(scriptID);
                     try {
                         printMessage(output, script.getString("name"));

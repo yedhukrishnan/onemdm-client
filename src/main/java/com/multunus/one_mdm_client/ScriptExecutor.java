@@ -16,11 +16,13 @@ public class ScriptExecutor {
     int exitValue = 0;
     ScriptExecutionOutput output;
     String scriptResult = "";
+    String terminalSession = "";
 
-    public ScriptExecutionOutput execute(String commands) {
+    public ScriptExecutionOutput execute(String commands, boolean rootPermissionRequired) {
         Log.d("one-mdm", "Executing script: " + commands);
         try {
-            Process process = executeCommand("sh");
+            terminalSession = getTerminalSession(rootPermissionRequired);
+            Process process = executeCommand(terminalSession);
 
             DataOutputStream os = new DataOutputStream(process.getOutputStream());
             InputStream inputStream = new ByteArrayInputStream(commands.getBytes());
@@ -59,6 +61,10 @@ public class ScriptExecutor {
 
 
         return output;
+    }
+
+    private String getTerminalSession(boolean rootPermissionRequired) {
+        return (rootPermissionRequired? "su" : "sh");
     }
 
     protected String getExecutionResult(InputStream stream) throws IOException {
