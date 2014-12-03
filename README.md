@@ -29,6 +29,7 @@ Set the constant `SERVER` to point to the hosted One MDM Server. Now, set the `A
 ``` java
 public static final String SERVER = <Server URL>;
 public static final String BUGSNAG_API_KEY = <Bugsnag API Key>;
+public static final String ACCESS_TOKEN = <Bugsnag API Key>;
 ```
 
 Build the project from the command line:
