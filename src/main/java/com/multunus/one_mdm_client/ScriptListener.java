@@ -82,6 +82,7 @@ public class ScriptListener {
         }
         HttpGet request = new HttpGet();
         request.setURI(website);
+        request.setHeader("Authorization", "Bearer " + Config.ACCESS_TOKEN);
         HttpResponse response = null;
         try {
             response = client.execute(request);

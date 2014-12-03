@@ -44,6 +44,7 @@ public class StatusUpdater extends AsyncTask<ScriptExecutionOutput, Void, String
         }
 
         apiPost.setEntity(registrationDataEntity);
+        apiPost.setHeader("Authorization", "Bearer " + Config.ACCESS_TOKEN);
 
         try {
             HttpResponse httpResponse = httpClient.execute(apiPost);

@@ -1,9 +1,6 @@
 package com.multunus.one_mdm_client;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import android.os.AsyncTask;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -14,7 +11,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.os.AsyncTask;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 
 public class RegistrationTask extends AsyncTask<String, Void, Integer> {
 	
@@ -46,6 +46,7 @@ public class RegistrationTask extends AsyncTask<String, Void, Integer> {
 		}
 		
 		apiPost.setEntity(registrationDataEntity);
+        apiPost.setHeader("Authorization", "Bearer " + Config.ACCESS_TOKEN);
 		
 		try {
 			HttpResponse httpResponse = httpClient.execute(apiPost);

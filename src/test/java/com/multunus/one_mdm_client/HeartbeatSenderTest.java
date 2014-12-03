@@ -1,7 +1,5 @@
 package com.multunus.one_mdm_client;
 
-import static org.robolectric.util.Strings.fromStream;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.ProtocolVersion;
 import org.apache.http.client.methods.HttpPost;
@@ -12,6 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+
+import static org.robolectric.util.Strings.fromStream;
 
 @RunWith(RobolectricTestRunner.class)
 public class HeartbeatSenderTest {

@@ -1,8 +1,5 @@
 package com.multunus.one_mdm_client;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -11,6 +8,9 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 public class HeartbeatSender {
 	private static final String HEARTBEAT_URL = Config.SERVER + "heartbeat/create";
@@ -33,6 +33,7 @@ public class HeartbeatSender {
 		}
 		
 		apiPost.setEntity(heartbeatDataEntity);
+        apiPost.setHeader("Authorization", "Bearer " + Config.ACCESS_TOKEN);
 		
 		try {
 			HttpResponse httpResponse = httpClient.execute(apiPost);
