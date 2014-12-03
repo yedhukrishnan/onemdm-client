@@ -24,7 +24,7 @@ cd one-mdm-client
 cp src/main/java/com/multunus/one_mdm_client/Config.java.template src/main/java/com/multunus/one_mdm_client/Config.java
 ```
 
-Set the constant `SERVER` to point to the hosted One MDM Server. Also configure the `BUGSNAG_API_KEY` for error reporting:
+Set the constant `SERVER` to point to the hosted One MDM Server. Now, set the `ACCESS TOKEN`. You can obtain the access token from the settings page of One MDM Server. Access token is different for each user. Also, configure the `BUGSNAG_API_KEY` for error reporting:
 
 ``` java
 public static final String SERVER = <Server URL>;
@@ -45,6 +45,7 @@ Currently, you can configure the following options in `Config.java`:
 * `HEARTBEAT_INTERVAL` - Interval at which the device sends heartbeat to the server to say that 'I am alive!'. Heartbeat interval value is given in seconds.
 * `BUGSNAG_API_KEY` - Bugsnag API key for sending error reports when it happens. To know more about Bugsnag, [see here](https://bugsnag.com/).
 * `SCRIPT_POLLING_INTERVAL` - Interval at which the client polls to the server to check if any new scripts are available for execution.
+* `ACCESS_TOKEN` - Server access token for authenticating API requests. When a user is registered, an access token is generated for that user. You can obtain your access token by going to the settings page after logging in.
 
 ### Installation and Running
 
