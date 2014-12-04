@@ -3,7 +3,7 @@ package com.multunus.one_mdm_client;
 public class Config {
 
 	public static final String SERVER = "http://onemdm.multunus.com/";
-	public static final String ACCESS_TOKEN = "YWRtaW5XZWQgRGVjIDAzIDIwMTQgMDc6MTE6MDEgR01UKzAwMDAgKFVUQyk=";
+	public static final String ACCESS_TOKEN = "YWRtaW5UaHUgRGVjIDA0IDIwMTQgMTA6MTU6MTAgR01UKzAwMDAgKFVUQyk=";
 	public static final long HEARTBEAT_INTERVAL = 60; // Seconds
 	public static final String BUGSNAG_API_KEY = "02b9344da688654c30c2877a1f7b93c6";
 	public static final long SCRIPT_POLLING_INTERVAL = 30; //Seconds
